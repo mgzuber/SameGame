@@ -17,6 +17,7 @@ class SameGame:
 
     def __init__(self, board: SameBoard, gui_client: GuiClient):
         self.board = board
+        print(self.board.hash())
         self.gui_client = gui_client
 
     def play_game(self):
@@ -33,6 +34,7 @@ class SameGame:
                     self.gui_client.end_game()
             # draw the board again
             if changed:
+                print(self.board.hash())
                 self.gui_client.draw_board(balls=self.board.get_balls(), boxes=self.board.get_boxes())
                 changed = False
             current_move_score = self.board.calculate_score(ball_position=self.gui_client.get_current_ball())
@@ -44,9 +46,9 @@ class SameGame:
 
 
 
-def main(num_columns: int = 16, num_rows: int = 14, size: int = 32):
+def main(num_columns: int = 5, num_rows: int = 5, size: int = 32):
     aScorer = Scorer()  # pylint: disable=invalid-name
-    aBoard = SameBoard(num_rows=num_rows, num_columns=num_columns, num_colours=4, scorer=aScorer)  # pylint: disable=invalid-name
+    aBoard = SameBoard(num_rows=num_rows, num_columns=num_columns, num_colours=5, scorer=aScorer)  # pylint: disable=invalid-name
     aGuiClient = PyGameClient(size=size, num_rows=num_rows, num_columns=num_columns, score_board_height=100, colours=ColourScheme.MONFAVORITE)  # pylint: disable=invalid-name
     sameGame = SameGame(board=aBoard, gui_client=aGuiClient)  # pylint: disable=invalid-name
     sameGame.play_game()

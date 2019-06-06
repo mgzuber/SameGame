@@ -14,6 +14,32 @@ class SameBoard:
         self.balls = self.generate_random_balls()
         self.scorer = scorer
         self.num_moves = 0
+        
+    def colourStr(self, i):
+        if (i is None):
+            return '-'
+        if (i.colour == 0):
+            return 'P'
+        if (i.colour == 1):
+            return 'B'
+        if (i.colour == 2):
+            return 'R'
+        if (i.colour == 3):
+            return 'b'
+        if (i.colour == 4):
+            return 'G'
+        
+            
+        
+    def hash(self):
+        out = '' + str(self.get_current_score()) + 'h' + str(self.num_rows) + 'w' + str(self.num_columns)
+        for i in range(self.num_columns):
+            for j in range(self.num_rows):
+                r = self.num_rows - j - 1
+                c = i
+                out += self.colourStr(self.balls[r][c])
+                
+        return out
 
     def get_balls(self) -> List[List[Ball]]:
         return self.balls
